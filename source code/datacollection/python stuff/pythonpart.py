@@ -13,6 +13,7 @@ def list_all_ports():
             print(f"Port: {port.device}, Description: {port.description}")
 
 list_all_ports()
+# instructions: put in the correct serial port and path and then type a command w,a,s,d, or n. then immediately do the gesture you typed. w is up, a is left, s is down, d is right, n is holding hand in front of sensor. "stop" when you are done
 
 serial_port = 'COM6';
 baud_rate = 9600; #In arduino, Serial.begin(baud_rate)
@@ -20,12 +21,12 @@ baud_rate = 9600; #In arduino, Serial.begin(baud_rate)
 ser = serial.Serial(serial_port, baud_rate)
 command = ""
 
-path = "C:/Users/Brad/Downloads/datacollectionforgestureNN/python stuff" 
-
+path = "C:/Users/Brad/Downloads/datacollectionforgestureNN/python stuff" # change this to your own python stuff path
 w = 0; # manually update this before rerunning 
 a = 0; # manually update this before rerunnning
 s = 0; # manually update this before rerunnning
 d = 0; # manually update this before rerunnning
+n = 0 
 
 while (command != "stop"):
     print("Type your command:")
@@ -42,6 +43,10 @@ while (command != "stop"):
     if (command == "d"):
         d = d + 1
         output_file = open(path + "/right/right_" + str(d) + ".csv", "w", encoding="utf-8");
+    if (command == "n"):
+        command = "nothing"
+        n = n + 1
+        output_file = open(path + "/nothing/nothing_" + str(d) + ".csv", "w", encoding="utf-8");
     ser.write((command + '\n').encode())
     while command != "stop":
         line = ser.readline();
@@ -54,3 +59,4 @@ print("change w into: " + str(w))
 print("change a into: " + str(a))
 print("change s into: " + str(s))
 print("change d into: " + str(d))
+print("change n into: " + str(n))
